@@ -19,6 +19,3 @@ class PlaceAdmin(OSMGeoAdmin, admin.ModelAdmin):
 
     def response_add(self, request, obj, post_url_continue=None):
         return redirect('places_repository')
-
-    def response_change(self, request, obj):
-        return redirect('places_repository')
