@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('weatherapp.urls'))
 ]
+
+admin.site.enable_nav_sidebar = False
