@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{obj.pk}}</title>
+    {% load leaflet_tags %}
+    {% leaflet_css %}
+    {% leaflet_js %}
+    <script type="text/javascript">
+        function map_init(map, options) {
+            var lon = "{{ obj.location.x }}";
+            var lat = "{{ obj.location.y }}";
+
+            map.setView([lat, lon], 12);
+            L.marker([lat, lon]).addTo(map);
+        }
+    </script>
+</head>
+<body>
+    <h1>{{ obj.name }}</h1>
+    {% leaflet_map "main" callback="map_init" %}
+    <h3>{{ obj.address }}</h3>
+    <h3>{{ obj.city }}</h3>
+    {% for period in forecast %}
+        {{period.detailedForecast}}
+    {% endfor %}
+</body>
+</html>
