@@ -4,6 +4,7 @@ from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 
 from .forms import CreatePlaceForm
 from .models import Place
+from .services import WeatherApi
 
 
 class PlacesView(ListView):
@@ -19,19 +20,11 @@ class PlaceView(UpdateView):
     template_name = 'geo_place.html'
     form_class = CreatePlaceForm
 
-    def get_forecast(self):
-        res = requests.get(f"https://api.weather.gov/points/{self.object.location.y},{self.object.location.x}")
-        if res.status_code == 200:
-            forecast_url = res.json().get('properties', {}).get('forecast')
-            if forecast_url:
-                r = requests.get(forecast_url)
-                if r.status_code == 200:
-                    return r.json().get('properties', {}).get('periods', {})
-        return "Could not get weather forecast"
-
     def get_context_data(self, **kwargs):
         ctx = super(PlaceView, self).get_context_data()
-        ctx['forecast'] = self.get_forecast()
+        forecast_obj = WeatherApi(self.object.location)
+        ctx['forecast'] = forecast_obj.get_forecast()
+        ctx['forecast_url'] = forecast_obj.get_api_url()
         return ctx
 
 

@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{obj.pk}}</title>
+{% extends 'index.html' %}
+
+{% block title %}{{obj.name}} Forecast{% endblock %}
+
+{% block header %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{ obj.name }}</h1>
+        <h2 class="card-subtitle mb-2 text-muted">{{ obj.address }}</h2>
+        <p class="lead">This is a leaflet map of {{ obj.city }}</p>
+        <hr class="my-4">
+    </div>
+{% endblock %}
+
+{% block content %}
     {% load leaflet_tags %}
     {% leaflet_css %}
     {% leaflet_js %}
+
     <script type="text/javascript">
         function map_init(map, options) {
             var lon = "{{ obj.location.x }}";
@@ -14,15 +24,28 @@
             map.setView([lat, lon], 12);
             L.marker([lat, lon]).addTo(map);
         }
-    </script>
-</head>
-<body>
-    <h1>{{ obj.name }}</h1>
+   </script>
+
     {% leaflet_map "main" callback="map_init" %}
-    <h3>{{ obj.address }}</h3>
-    <h3>{{ obj.city }}</h3>
-    {% for period in forecast %}
-        {{period.detailedForecast}}
-    {% endfor %}
-</body>
-</html>
+
+     <hr class="my-4">
+
+    <h1 class="display-5">Weather Forecast</h1>
+
+    <table style="border:none">
+        {% if forecast %}
+            {% for period in forecast %}
+                <tr style="pointer-events:none">
+                    <td><img class="circular_image" src="{{period.icon}}"></td>
+                    <td>{{period.name}}</td>
+                    <td>{{period.temperature}} <span>&#176;</span>  {{period.temperatureUnit}}</td>
+                    <td>{{period.detailedForecast}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <h3 class="display-4">Could not get weather forecast for this location</h3>
+             <hr class="my-4">
+            <h4 class="display-4"><a href="{{ forecast_url }}">Click to go to weather api and check the error!</a></h4>
+        {% endif %}
+    </table>
+{% endblock %}

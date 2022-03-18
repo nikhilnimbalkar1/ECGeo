@@ -1,31 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Places Repository</title>
-    <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
+{% extends 'index.html' %}
+{% block title %}Places Repository{% endblock %}
 
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        tr:hover{
-            cursor: pointer;
-            background-color: grey;
-        }
-</style>
-</head>
-<body>
-    <h1>Repository of all available places</h1>
+{% block header %}
+    <div class="jumbotron">
+        <h1 class="display-4">Weather Forecast</h1>
+        <p class="lead">This is a repository of all stored locations</p>
+        <hr class="my-4">
+    </div>
+{% endblock %}
+
+{% block content %}
     {% if objs %}
         <table>
-            <thead>
+            <thead class="bg-secondary">
                 <th>Id</th>
                 <th>Name</th>
                 <th>City</th>
@@ -47,6 +34,5 @@
     {% endif %}
 
     <br>
-    <center><button onclick="window.location='admin/weatherapp/place/add/'">Add New</button></center>
-</body>
-</html>
+    <center><button class="btn btn-lg btn-primary" onclick="window.location='admin/weatherapp/place/add/'">Add New</button></center>
+{% endblock %}
