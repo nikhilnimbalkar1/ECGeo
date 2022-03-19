@@ -28,27 +28,27 @@ The repository is the collection of all stored places, each row is clickable whi
 ![](screenshots/repository.png)
 
 Following examples of individual place view with a leaflet map and forecast for available periods
-![](screenshots/Screenshot from 2022-03-19 19-31-51.png)
-![](screenshots/Screenshot from 2022-03-19 19-31-40.png)
+![](screenshots/4.png)
+![](screenshots/3.png)
 
-![](screenshots/Screenshot from 2022-03-19 19-32-07.png)
-![](screenshots/Screenshot from 2022-03-19 19-32-04.png)
+![](screenshots/6.png)
+![](screenshots/5.png)
 
 
 This is a location within Pune,India, but no weather forecast was retreived for this location.
 The required API serves USA locations only!
-![](screenshots/Screenshot from 2022-03-19 19-32-15.png)
+![](screenshots/7.png)
 
 
 Here again I had to override the Create view from django admin as for some unknown reason, the Pointfield would not render as a map in my own ModelForm.
 Due to time constraint I decided to use the admin change form itself by overriding the template.
 On save the user is redirected back to repository.
-![](screenshots/Screenshot from 2022-03-19 19-30-56.png)
+![](screenshots/1.png)
 
-![](screenshots/Screenshot from 2022-03-19 19-31-05.png)
+![](screenshots/2.png)
 
 Finally, the logout page is also overridden.
-![](screenshots/Screenshot from 2022-03-19 19-32-25.png)
+![](screenshots/8.png)
 
 
 References:-
