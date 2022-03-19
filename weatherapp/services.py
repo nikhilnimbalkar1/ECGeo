@@ -10,19 +10,34 @@ class WeatherApi:
     def get_api_url(self):
         return self.api_url
 
-    def get_forecast_url(self):
-        url = None
+    def get_response(self):
+        data = {
+            'url': None
+        }
         res = requests.get(self.get_api_url())
+        data['api_status'] = res.status_code
+        response_data = res.json()
         if res.status_code == 200:
-            url = res.json().get('properties', {}).get('forecast')
-        return url
+            data['url'] = response_data.get('properties', {}).get('forecast')
+        else:
+            data.update({
+                'error': response_data.get('title'),
+                'error_detail': response_data.get('detail')
+                }
+            )
+
+        return data
 
     def get_forecast(self):
-        forecast_url = self.get_forecast_url()
-        forecast = None
-        if forecast_url:
-            r = requests.get(forecast_url)
+        data = self.get_response()
+        if data.get('api_status') == 200:
+            r = requests.get(data.get('url'))
             if r.status_code == 200:
-                forecast = r.json().get('properties', {}).get('periods', {})
-        return forecast
+                data.update(
+                    {
+                        'forecasts': r.json().get('properties', {}).get('periods', {}),
+                        'forecast_status': r.status_code
+                    }
+                )
+        return data
 

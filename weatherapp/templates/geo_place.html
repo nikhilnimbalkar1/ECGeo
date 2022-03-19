@@ -33,8 +33,8 @@
     <h1 class="display-5">Weather Forecast</h1>
 
     <table style="border:none">
-        {% if forecast %}
-            {% for period in forecast %}
+        {% if forecast.api_status == 200 and forecast.forecast_status == 200 %}
+            {% for period in forecast.forecasts %}
                 <tr style="pointer-events:none">
                     <td><img class="circular_image" src="{{period.icon}}"></td>
                     <td>{{period.name}}</td>
@@ -43,9 +43,9 @@
                 </tr>
             {% endfor %}
         {% else %}
-            <h3 class="display-4">Could not get weather forecast for this location</h3>
+            <h3 class="display-4">{{ forecast.error}}</h3>
              <hr class="my-4">
-            <h4 class="display-4"><a href="{{ forecast_url }}">Click to go to weather api and check the error!</a></h4>
+            <h4 class="display-4"><a href="{{ forecast_url }}">{{forecast.error_detail}}</a></h4>
         {% endif %}
     </table>
 {% endblock %}
