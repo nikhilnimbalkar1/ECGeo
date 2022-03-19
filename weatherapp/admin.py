@@ -11,6 +11,7 @@ class PlaceAdmin(OSMGeoAdmin, admin.ModelAdmin):
     list_display = ('name', 'location')
 
     def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        # change admin form view
         extra_context = extra_context or {}
         extra_context['show_save_and_continue'] = False
         extra_context['show_save_and_add_another'] = False
@@ -18,4 +19,4 @@ class PlaceAdmin(OSMGeoAdmin, admin.ModelAdmin):
         return super(PlaceAdmin, self).changeform_view(request, object_id, extra_context=extra_context)
 
     def response_add(self, request, obj, post_url_continue=None):
-        return redirect('places_repository')
+        return redirect('places_repository')  # redirect to repo on adding n place

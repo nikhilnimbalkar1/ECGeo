@@ -11,6 +11,10 @@ class WeatherApi:
         return self.api_url
 
     def get_response(self):
+        """
+            Get response data from the weather api through location lat and long
+        :return: response dict
+        """
         data = {
             'url': None
         }
@@ -29,6 +33,10 @@ class WeatherApi:
         return data
 
     def get_forecast(self):
+        """
+            Get actual forecasts from the response data
+        :return: dict
+        """
         data = self.get_response()
         if data.get('api_status') == 200:
             r = requests.get(data.get('url'))

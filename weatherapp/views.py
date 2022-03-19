@@ -1,7 +1,6 @@
-import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.views.generic import ListView, CreateView, TemplateView, UpdateView
+from django.views.generic import ListView, UpdateView
 
 from .forms import CreatePlaceForm
 from .models import Place

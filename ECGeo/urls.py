@@ -26,4 +26,4 @@ urlpatterns = [
 
 ]
 
-admin.site.enable_nav_sidebar = False
+admin.site.enable_nav_sidebar = False  # disable navigation sidebar in admin page
