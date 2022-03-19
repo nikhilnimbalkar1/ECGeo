@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %} Logout {% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block branding %} {% endblock %}
+
+
+{% block content %}
+
+<p>{% translate "Thanks for using the application." %}</p>
+
+<p><a href="{% url 'custom_login' %}">{% translate 'Log in again' %}</a></p>
+
+{% endblock %}

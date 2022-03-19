@@ -1,4 +1,5 @@
 import requests
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 
@@ -7,13 +8,13 @@ from .models import Place
 from .services import WeatherApi
 
 
-class PlacesView(ListView):
+class PlacesView(LoginRequiredMixin, ListView):
     model = Place
     template_name = "geo_places.html"
     context_object_name = 'objs'
 
 
-class PlaceView(UpdateView):
+class PlaceView(LoginRequiredMixin, UpdateView):
     model = Place
     context_object_name = 'obj'
     slug_field = 'pk'

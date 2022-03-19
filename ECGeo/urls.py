@@ -13,12 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('weatherapp.urls'))
+    path('places/', include('weatherapp.urls')),
+    path('', LoginView.as_view(extra_context={'next': 'places/repository/'}), name="custom_login"),
+    path('logout/', LogoutView.as_view(), name="custom_logout"),
+
 ]
 
 admin.site.enable_nav_sidebar = False
